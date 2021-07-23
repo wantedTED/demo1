@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+       
+        <div v-for="item in sites">
+            <p>{{item.title}}</p>
+            <span ><img :src="item.image"></span>
+            <p>{{item.passtime}}</p>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var app = new Vue({   
+          //Vue渲染页面
+            el: "#app",  
+            data: {   
+                
+                sites: [
+
+                ]
+            },
+            created: function () {
+                this.show();
+            },
+            mounted: function () {
+
+            },
+            methods: {
+                show: function () {
+                    axios.get('https://api.apiopen.top/getWangYiNews').then(function (response) {
+                         this.sites = response.data.result;  
+                         console.log(this.sites)       
+                         console.log(response.data)           
+                    }.bind(this)).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+<style>
+
+</style>
+</html>
